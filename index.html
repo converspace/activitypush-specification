@@ -29,6 +29,8 @@
       <section>
         <p>A lightweight method for URI addressable resource owners to request and receive unsolicited notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.</p>
 
+<p>It aims to be the natural successor to <a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a>/<a href="http://archive.cweiske.de/trackback/trackback-1.2.html">Trackback</a> and uses <a href="http://activitystrea.ms/">Activity Streams</a>.</p>
+
 <h2>Discovery</h2>
 
 <pre><code>Request:
@@ -40,7 +42,7 @@ HTTP/1.1 200 OK
 X-ActivityPingback-URI: http://source.example/activity-pingback-receiver
 </code></pre>
 
-<p>Optionally a the AcitivityPingback-URI could also be provided as a link element that satisfies the following regex:
+<p>Optionally the AcitivityPingback-URI could also be provided as a link element that satisfies the following regex:
 <code>&lt;link rel="activitypingback-uri" href="([^"]+)" ?/?&gt;</code></p>
 
 <h2>Activity Pingback Notification</h2>
@@ -71,6 +73,13 @@ token=q1w2e3r4t5y6&amp;URI=http://source.example/referenced-resource
 Response:
 HTTP/1.1 200 OK
 </code></pre>
+
+<h2>See also</h2>
+
+<ul>
+<li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon Protocol</a></li>
+<li><a href="http://tools.ietf.org/html/draft-prodromou-dialback-00">Dialback Authentication</a></li>
+</ul>
       </section>
     </div>
     <footer>
