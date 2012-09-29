@@ -15,7 +15,7 @@ Host: source.example
 
 Response:
 HTTP/1.1 200 OK
-X-ActivityPingback-URI: http://source.example/activity-pingback-receiver
+ActivityPingback-URI: http://source.example/activity-pingback-receiver
 ```
 Optionally the AcitivityPingback-URI could also be provided as a link element that satisfies the following regex:
 `<link rel="activitypingback-uri" href="([^"]+)" ?/?>`
@@ -27,8 +27,8 @@ Activity Pingback Notification
 Request:
 POST /activity-pingback-receiver
 Host: source.example
-X-ActivityPingback-Token: 'q1w2e3r4t5y6'
-X-ActivityPingback-VerficationURI: http://remote.example/activity-pingback-verifier
+ActivityPingback-Token: 'q1w2e3r4t5y6'
+ActivityPingback-VerficationURI: http://remote.example/activity-pingback-verifier
 
 <JSON Activity Stream Payload>
 
