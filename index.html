@@ -27,56 +27,52 @@
         </ul>
       </header>
       <section>
-        <p>A lightweight method for URI addressable resource owners to request and receive unsolicited notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.</p>
-
-<p>It aims to be the natural successor to <a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a>/<a href="http://archive.cweiske.de/trackback/trackback-1.2.html">Trackback</a> and uses <a href="http://activitystrea.ms/">Activity Streams</a>.</p>
+        <p>A lightweight method for URI addressable resource owners to request and receive unsolicited (<a href="http://activitystrea.ms/specs/json/1.0/">JSON Activity Streams</a> based)  notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.</p>
 
 <h2>Discovery</h2>
 
-<pre><code>Request:
-GET /referenced-resource HTTP/1.1
-Host: source.example
+<pre><code>&gt; GET /referenced-resource HTTP/1.1
+&gt; Host: source.host
 
-Response:
-HTTP/1.1 200 OK
-ActivityPingback-URI: http://source.example/activity-pingback-receiver
+
+&lt; HTTP/1.1 200 OK
+&lt; Activity-Pingback: http://source.host/activity-pingback-receiver
 </code></pre>
 
-<p>Optionally the AcitivityPingback-URI could also be provided as a link element that satisfies the following regex:
-<code>&lt;link rel="activitypingback-uri" href="([^"]+)" ?/?&gt;</code></p>
+<h2>Notification</h2>
 
-<h2>Activity Pingback Notification</h2>
-
-<pre><code>Request:
-POST /activity-pingback-receiver
-Host: source.example
-ActivityPingback-Token: 'q1w2e3r4t5y6'
-ActivityPingback-VerficationURI: http://remote.example/activity-pingback-verifier
-
-&lt;JSON Activity Stream Payload&gt;
+<pre><code>&gt; POST /activity-pingback-receiver HTTP/1.1
+&gt; Host: source.host
+&gt; Activity-Pingback-HMAC: hmac_signature
+&gt; Activity-Pingback-Verify: http://remote.host/activity-pingback-verifier
+&gt;
+&gt; {JSON Activity Stream Payload}
 
 
-Response:
-HTTP/1.1 202 Accepted
+&lt; HTTP/1.1 202 Accepted
 </code></pre>
 
-<h2>Activity Pingback Verification</h2>
+<p>The <code>hmac_signature</code> of the <code>JSON Activity Stream Payload</code> is calculated by <code>remote.host</code> using an <code>algo</code> of its choice and its <code>secret</code>.</p>
 
-<pre><code>Request:
-POST /activity-pingback-verifier HTTP/1.1
-Host: remote.example 
-Content-Type: application/x-www-form-urlencoded; charset=utf-8
+<h2>Verification</h2>
 
-token=q1w2e3r4t5y6&amp;URI=http://source.example/referenced-resource
+<pre><code>&gt; POST /activity-pingback-verifier HTTP/1.1
+&gt; Host: remote.host
+&gt; Activity-Pingback-HMAC: hmac_signature
+&gt;
+&gt; {JSON Activity Stream Payload}
 
 
-Response:
-HTTP/1.1 200 OK
+&lt; HTTP/1.1 200 OK
 </code></pre>
+
+<p><code>remote.host</code> compares the received <code>hmac_signature</code> against the signature of the received <code>JSON Activity Stream Payload</code> calculated using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
 <h2>See also</h2>
 
 <ul>
+<li><a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a></li>
+<li><a href="http://archive.cweiske.de/trackback/trackback-1.2.html">Trackback</a></li>
 <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon Protocol</a></li>
 <li><a href="http://tools.ietf.org/html/draft-prodromou-dialback-00">Dialback Authentication</a></li>
 </ul>
