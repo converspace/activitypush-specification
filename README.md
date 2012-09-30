@@ -56,3 +56,4 @@ See also
 * [Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html)
 * [Salmon Protocol](http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html)
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
+* [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
