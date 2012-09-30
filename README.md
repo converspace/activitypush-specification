@@ -1,55 +1,54 @@
-Activity Pingback Specification
-===============================
+# Activity Pingback Specification
 
 A lightweight method for URI addressable resource owners to request and receive unsolicited notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.
 
 It aims to be the natural successor to [Pingback](http://www.hixie.ch/specs/pingback/pingback)/[Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html) and uses [Activity Streams](http://activitystrea.ms/).
 
-Discovery
----------
+
+
+
+## Discovery
 
 ```
-Request:
-GET /referenced-resource HTTP/1.1
-Host: source.example
-
-Response:
-HTTP/1.1 200 OK
-ActivityPingback-URI: http://source.example/activity-pingback-receiver
-```
-Optionally the AcitivityPingback-URI could also be provided as a link element that satisfies the following regex:
-`<link rel="activitypingback-uri" href="([^"]+)" ?/?>`
-
-Activity Pingback Notification
-------------------------------
-
-```
-Request:
-POST /activity-pingback-receiver
-Host: source.example
-ActivityPingback-Token: 'q1w2e3r4t5y6'
-ActivityPingback-VerficationURI: http://remote.example/activity-pingback-verifier
-
-<JSON Activity Stream Payload>
+> GET /referenced-resource HTTP/1.1
+> Host: source.host
 
 
-Response:
-HTTP/1.1 202 Accepted
+< HTTP/1.1 200 OK
+< Activity-Pingback: http://source.host/activity-pingback-receiver
 ```
 
-Activity Pingback Verification
-------------------------------
+
+
+
+## Notification
+
 ```
-Request:
-POST /activity-pingback-verifier HTTP/1.1
-Host: remote.example 
-Content-Type: application/x-www-form-urlencoded; charset=utf-8
+> POST /activity-pingback-receiver HTTP/1.1
+> Host: source.host
+> Activity-Pingback-HMAC: hmac_signature
+> Activity-Pingback-Verify: http://remote.host/activity-pingback-verifier
+>
+> {JSON Activity Stream Payload}
 
-token=q1w2e3r4t5y6&URI=http://source.example/referenced-resource
+
+< HTTP/1.1 202 Accepted
+```
+
+The `hmac_signature` of the `JSON Activity Stream Payload` is calculated using remote.host's private `secret`.
 
 
-Response:
-HTTP/1.1 200 OK
+## Verification
+
+```
+> POST /activity-pingback-verifier HTTP/1.1
+> Host: remote.host
+> Activity-Pingback-HMAC: hmac_signature
+>
+> {JSON Activity Stream Payload}
+
+
+< HTTP/1.1 200 OK
 ```
 
 
