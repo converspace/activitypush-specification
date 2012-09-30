@@ -31,7 +31,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 < HTTP/1.1 202 Accepted
 ```
 
-The `hmac_signature` of the `JSON Activity Stream Payload` is calculated using remote.host's private `secret`.
+The `hmac_signature` of the `JSON Activity Stream Payload` is calculated by `remote.host` using an `algo` of its choice and its `secret`.
 
 
 ## Verification
@@ -46,6 +46,8 @@ The `hmac_signature` of the `JSON Activity Stream Payload` is calculated using r
 
 < HTTP/1.1 200 OK
 ```
+
+`remote.host` compares the received `hmac_signature` against the signature of the received `JSON Activity Stream Payload` calculated using the `algo` and `secret` it uses while sending notifications.
 
 
 See also
