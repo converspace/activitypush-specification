@@ -1,10 +1,6 @@
 # Activity Pingback Specification
 
-A lightweight method for URI addressable resource owners to request and receive unsolicited notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.
-
-It aims to be the natural successor to [Pingback](http://www.hixie.ch/specs/pingback/pingback)/[Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html) and uses [Activity Streams](http://activitystrea.ms/).
-
-
+A lightweight method for URI addressable resource owners to request and receive unsolicited ([JSON Activity Streams](http://activitystrea.ms/specs/json/1.0/) based)  notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.
 
 
 ## Discovery
@@ -54,5 +50,7 @@ The `hmac_signature` of the `JSON Activity Stream Payload` is calculated using r
 
 See also
 --------
+* [Pingback](http://www.hixie.ch/specs/pingback/pingback)
+* [Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html)
 * [Salmon Protocol](http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html)
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
