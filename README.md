@@ -54,6 +54,7 @@ See also
 --------
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
 * [Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html)
+* [RESTful](http://bblfish.net/tmp/2011/05/09/) [Pings](http://www.w3.org/community/rww/wiki/Pingback)
 * [Salmon Protocol](http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html)
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
 * [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
