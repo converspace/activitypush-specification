@@ -49,6 +49,11 @@ The `hmac_signature` of the `JSON Activity Streams Payload` is calculated by `re
 
 `remote.host` compares the received `hmac_signature` against the signature of the received `JSON Activity Streams Payload` calculated using the `algo` and `secret` it uses while sending notifications.
 
+Notes
+-----
+* `source.host` can publish a HTTPS `Activity-Pingback` URI to receive notifications securely.
+* `remote.host` can send a HTTPS `Activity-Pingback-Verify` URI to prevent spoofing.
+
 
 See also
 --------
