@@ -55,6 +55,11 @@ Notes
 * `remote.host` can send a HTTPS `Activity-Pingback-Verify` URI to prevent spoofing.
 
 
+TODO
+----
+* `remote.host` should add timestamp while creating the hash to prevent MIM replay attacks?
+
+
 See also
 --------
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
