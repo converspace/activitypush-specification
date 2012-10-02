@@ -11,7 +11,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 
 < HTTP/1.1 200 OK
-< Activity-Pingback: http://source.host/activity-pingback-receiver
+< Link: <http://source.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
 ```
 
 
@@ -23,7 +23,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 > POST /activity-pingback-receiver HTTP/1.1
 > Host: source.host
 > Activity-Pingback-HMAC: hmac_signature
-> Activity-Pingback-Verify: http://remote.host/activity-pingback-verifier
+> Link: <http://remote.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
 >
 > {JSON Activity Streams Payload}
 
@@ -37,7 +37,7 @@ The `hmac_signature` of the `JSON Activity Streams Payload` is calculated by `re
 ## Verification
 
 ```
-> POST /activity-pingback-verifier HTTP/1.1
+> POST /activity-pingback-endpoint HTTP/1.1
 > Host: remote.host
 > Activity-Pingback-HMAC: hmac_signature
 >
