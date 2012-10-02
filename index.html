@@ -68,7 +68,14 @@
 
 <p><code>remote.host</code> compares the received <code>hmac_signature</code> against the signature of the received <code>JSON Activity Streams Payload</code> calculated using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
-<h2>See also</h2>
+<h2>Notes</h2>
+
+<ul>
+<li>
+<code>source.host</code> can publish a HTTPS <code>Activity-Pingback</code> URI to receive notifications securely.</li>
+<li>
+<code>remote.host</code> can send a HTTPS <code>Activity-Pingback-Verify</code> URI to prevent spoofing.</li>
+</ul><h2>See also</h2>
 
 <ul>
 <li><a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a></li>
