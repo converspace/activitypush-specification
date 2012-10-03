@@ -36,15 +36,17 @@
 
 
 &lt; HTTP/1.1 200 OK
-&lt; Activity-Pingback: http://source.host/activity-pingback-receiver
+&lt; Link: &lt;http://source.host/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
 </code></pre>
 
 <h2>Notification</h2>
 
 <pre><code>&gt; POST /activity-pingback-receiver HTTP/1.1
 &gt; Host: source.host
-&gt; Activity-Pingback-HMAC: hmac_signature
-&gt; Activity-Pingback-Verify: http://remote.host/activity-pingback-verifier
+&gt; Activity-Pingback: uri="http://remote.host/activity-pingback-endpoint",
+&gt;                    timestamp="1336363200",
+&gt;                    nonce="dj83hs9s",
+&gt;                    hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
 &gt;
 &gt; {JSON Activity Streams Payload}
 
@@ -52,13 +54,16 @@
 &lt; HTTP/1.1 202 Accepted
 </code></pre>
 
-<p>The <code>hmac_signature</code> of the <code>JSON Activity Streams Payload</code> is calculated by <code>remote.host</code> using an <code>algo</code> of its choice and its <code>secret</code>.</p>
+<p>The <code>hmac_sig</code> is calculated by <code>remote.host</code> over (<code>http://source.host/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nounce</code> + <code>JSON Activity Streams Payload</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
 
 <h2>Verification</h2>
 
-<pre><code>&gt; POST /activity-pingback-verifier HTTP/1.1
+<pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
 &gt; Host: remote.host
-&gt; Activity-Pingback-HMAC: hmac_signature
+&gt; Activity-Pingback-Verify: uri="http://source.host/activity-pingback-endpoint",
+&gt;                           timestamp="1336363200",
+&gt;                           nonce="dj83hs9s",
+&gt;                           hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
 &gt;
 &gt; {JSON Activity Streams Payload}
 
@@ -66,20 +71,12 @@
 &lt; HTTP/1.1 200 OK
 </code></pre>
 
-<p><code>remote.host</code> compares the received <code>hmac_signature</code> against the signature of the received <code>JSON Activity Streams Payload</code> calculated using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
+<p><code>remote.host</code> compares the received <code>hmac_signature</code> against the one calculated over the received (<code>uri</code> + <code>timestamp</code> + <code>nouce</code> + <code>JSON Activity Streams Payload</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
-<h2>Notes</h2>
-
-<ul>
-<li>
-<code>source.host</code> can publish a HTTPS <code>Activity-Pingback</code> URI to receive notifications securely.</li>
-<li>
-<code>remote.host</code> can send a HTTPS <code>Activity-Pingback-Verify</code> URI to prevent spoofing.</li>
-</ul><h2>TODO</h2>
+<h2>TODO</h2>
 
 <ul>
-<li>
-<code>remote.host</code> should add timestamp while creating the hash to prevent MIM replay attacks?</li>
+<li>Consider using <a href="http://tools.ietf.org/html/draft-prodromou-dialback-00">Dialback Authentication</a> if <a href="https://github.com/e14n/pump.io/issues/144">e14n/pump.io#144</a> is fixed.</li>
 </ul><h2>See also</h2>
 
 <ul>
