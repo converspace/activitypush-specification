@@ -60,19 +60,20 @@ The `hmac_sig` is calculated by `notification.sender` over (`http://notification
 
 ### Questions receivers should be able to reliably answer:
 
-* Did __you__ (the sender mentioned in the request) send __this activity__  to __me__?
-* Is __this activity__ about __my resource__?
-  * Check the _object_ in the activity?
-* How do I know if I'm actually taking with the intended sender?
-  * HTTPS?
-* Is this activity relevant to the conversation or just spam?
+1. Did __you__ (the sender mentioned in the request) send __this activity__  to __me__?
+ * The verification step should answer the __you__ part. Calculating the singature over the payload should answer the __this activity__ part. Calculating the signature over the receivers activity pingback endpoint should answer the __me__ part.
+2. Is __this activity__ about __my resource__?
+  * Checking the _object_ in the activity should answer this?
+3. How do I know if I'm actually taking with the intended sender?
+  * Given the unsolicited nature of the notification, HTTPS might be the only answer?
+4. Is this activity relevant to the conversation or just spam?
   * Recommend moderation of first time senders and then maually whitelist/backlist them? Given the use case the frequency of this might be similar to accepting friend requests.
 
 ### Questions senders should be able to reliably answer:
 * How do I know my notification is actually reaching the intended receiver?
-  * HTTPS?
+ * Given the unsolicited nature of the notification, HTTPS might be the only answer?
 * Can someone else send this message on my behalf without me knowing about it?
-
+ * Calculating the signature over a timestamp and nounce should prevent this?
 
 ## TODO
 
