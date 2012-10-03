@@ -64,7 +64,7 @@ The `hmac_sig` is calculated by `notification.sender` over (`http://notification
  * The verification step should answer the __you__ part. Calculating the singature over the payload should answer the __this activity__ part. Calculating the signature over the receivers activity pingback endpoint should answer the __me__ part.
 2. Is __this activity__ about __my resource__?
   * Checking the _object_ in the activity should answer this?
-3. How do I know if I'm actually taking with the intended sender?
+3. How do I know if I'm actually talking with the intended sender?
   * Given the unsolicited nature of the notification, HTTPS might be the only answer?
 4. Is this activity relevant to the conversation or just spam?
   * Recommend moderation of first time senders and then maually whitelist/backlist them? Given the use case the frequency of this might be similar to accepting friend requests.
