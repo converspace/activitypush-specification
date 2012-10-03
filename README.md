@@ -62,15 +62,15 @@ The `hmac_sig` is calculated by `notification.sender` over (`http://notification
 
 * Did __you__ (the sender mentioned in the request) send __this activity__  to __me__?
 * Is __this activity__ about __my resource__?
-  * Check the _object_ in the activity
+  * Check the _object_ in the activity?
 * How do I know if I'm actually taking with the intended sender?
   * HTTPS?
 * Is this activity relevant to the conversation or just spam?
-  * Moderate first time senders and then maually whitelist/backlist them. Given the use case the frequency of this might be similar to accepting friend requests.
+  * Recommend moderation of first time senders and then maually whitelist/backlist them? Given the use case the frequency of this might be similar to accepting friend requests.
 
 ### Questions senders should be able to reliably answer:
 * How do I know my notification is actually reaching the intended receiver?
-  * HTTPS
+  * HTTPS?
 * Can someone else send this message on my behalf without me knowing about it?
 
 
