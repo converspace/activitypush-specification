@@ -32,18 +32,18 @@
 <h2>Discovery</h2>
 
 <pre><code>&gt; GET /referenced-resource HTTP/1.1
-&gt; Host: source.host
+&gt; Host: notification.receiver
 
 
 &lt; HTTP/1.1 200 OK
-&lt; Link: &lt;http://source.host/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
+&lt; Link: &lt;http://notification.receiver/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
 </code></pre>
 
 <h2>Notification</h2>
 
 <pre><code>&gt; POST /activity-pingback-receiver HTTP/1.1
-&gt; Host: source.host
-&gt; Activity-Pingback: uri="http://remote.host/activity-pingback-endpoint",
+&gt; Host: notification.receiver
+&gt; Activity-Pingback: uri="http://notification.sender/activity-pingback-endpoint",
 &gt;                    timestamp="1336363200",
 &gt;                    nonce="dj83hs9s",
 &gt;                    hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
@@ -54,13 +54,13 @@
 &lt; HTTP/1.1 202 Accepted
 </code></pre>
 
-<p>The <code>hmac_sig</code> is calculated by <code>remote.host</code> over (<code>http://source.host/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nounce</code> + <code>JSON Activity Streams Payload</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
+<p>The <code>hmac_sig</code> is calculated by <code>notification.sender</code> over (<code>http://notification.receiver/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nounce</code> + <code>JSON Activity Streams Payload</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
 
 <h2>Verification</h2>
 
 <pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
-&gt; Host: remote.host
-&gt; Activity-Pingback-Verify: uri="http://source.host/activity-pingback-endpoint",
+&gt; Host: notification.sender
+&gt; Activity-Pingback-Verify: uri="http://notification.receiver/activity-pingback-endpoint",
 &gt;                           timestamp="1336363200",
 &gt;                           nonce="dj83hs9s",
 &gt;                           hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
@@ -71,7 +71,7 @@
 &lt; HTTP/1.1 200 OK
 </code></pre>
 
-<p><code>remote.host</code> compares the received <code>hmac_signature</code> against the one calculated over the received (<code>uri</code> + <code>timestamp</code> + <code>nouce</code> + <code>JSON Activity Streams Payload</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
+<p><code>notification.sender</code> compares the received <code>hmac_signature</code> against the one calculated over the received (<code>uri</code> + <code>timestamp</code> + <code>nouce</code> + <code>JSON Activity Streams Payload</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
 <h2>TODO</h2>
 
