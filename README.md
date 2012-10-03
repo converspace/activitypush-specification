@@ -61,19 +61,19 @@ The `hmac_sig` is calculated by `notification.sender` over (`http://notification
 ### Questions receivers should be able to reliably answer:
 
 1. Did __you__ (the sender mentioned in the request) send __this activity__  to __me__?
- * The verification step should answer the __you__ part. Calculating the singature over the payload should answer the __this activity__ part. Calculating the signature over the receivers activity pingback endpoint should answer the __me__ part.
+ * The `verification` step should answer the __you__ part. Calculating the `hmac_sig` over the `payload` should answer the __this activity__ part. Calculating the `hmac_sig` over the `receivers activity pingback endpoint` should answer the __me__ part.
 2. Is __this activity__ about __my resource__?
-  * Checking the _object_ in the activity should answer this?
+  * Checking the _object_ in the activity should answer this.
 3. How do I know if I'm actually talking with the intended sender?
-  * Given the unsolicited nature of the notification, HTTPS might be the only answer?
+  * Given the _unsolicited nature of the notification_, an `HTTPS` activity pingback endpoint by the __sender__ might be the only answer.
 4. Is this activity relevant to the conversation or just spam?
-  * Recommend moderation of first time senders and then maually whitelist/backlist them? Given the use case the frequency of this might be similar to accepting friend requests.
+  * __Moderation of first time senders__ and then _whitelisting/backlisting_ them should help. Given the use case, the frequency of this might be similar to accepting friend requests.
 
 ### Questions senders should be able to reliably answer:
 * How do I know my notification is actually reaching the intended receiver?
- * Given the unsolicited nature of the notification, HTTPS might be the only answer?
+ * Given the _unsolicited nature of the notification_, an `HTTPS` activity pingback endpoint by the __receiver__ might be the only answer.
 * Can someone else send this message on my behalf without me knowing about it?
- * Calculating the signature over a timestamp and nounce should prevent this?
+ * Calculating the `hmac_sig` over a `timestamp` and `nounce` should prevent this.
 
 ## TODO
 
