@@ -7,11 +7,11 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 ```
 > GET /referenced-resource HTTP/1.1
-> Host: source.host
+> Host: notification.receiver
 
 
 < HTTP/1.1 200 OK
-< Link: <http://source.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< Link: <http://notification.receiver/activity-pingback-endpoint>; rel="http://activitypingback.org/"
 ```
 
 
@@ -21,8 +21,8 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 ```
 > POST /activity-pingback-receiver HTTP/1.1
-> Host: source.host
-> Activity-Pingback: uri="http://remote.host/activity-pingback-endpoint",
+> Host: notification.receiver
+> Activity-Pingback: uri="http://notification.sender/activity-pingback-endpoint",
 >                    timestamp="1336363200",
 >                    nonce="dj83hs9s",
 >                    hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
@@ -33,15 +33,15 @@ A lightweight method for URI addressable resource owners to request and receive 
 < HTTP/1.1 202 Accepted
 ```
 
-The `hmac_sig` is calculated by `remote.host` over (`http://source.host/activity-pingback-endpoint` + `timestamp` + `nounce` + `JSON Activity Streams Payload`) using an `algo` of its choice and its `secret` as key.
+The `hmac_sig` is calculated by `notification.sender` over (`http://notification.receiver/activity-pingback-endpoint` + `timestamp` + `nounce` + `JSON Activity Streams Payload`) using an `algo` of its choice and its `secret` as key.
 
 
 ## Verification
 
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
-> Host: remote.host
-> Activity-Pingback-Verify: uri="http://source.host/activity-pingback-endpoint",
+> Host: notification.sender
+> Activity-Pingback-Verify: uri="http://notification.receiver/activity-pingback-endpoint",
 >                           timestamp="1336363200",
 >                           nonce="dj83hs9s",
 >                           hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
@@ -52,7 +52,7 @@ The `hmac_sig` is calculated by `remote.host` over (`http://source.host/activity
 < HTTP/1.1 200 OK
 ```
 
-`remote.host` compares the received `hmac_signature` against the one calculated over the received (`uri` + `timestamp` + `nouce` + `JSON Activity Streams Payload`) using the `algo` and `secret` it uses while sending notifications.
+`notification.sender` compares the received `hmac_signature` against the one calculated over the received (`uri` + `timestamp` + `nouce` + `JSON Activity Streams Payload`) using the `algo` and `secret` it uses while sending notifications.
 
 
 
