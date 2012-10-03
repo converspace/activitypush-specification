@@ -22,8 +22,10 @@ A lightweight method for URI addressable resource owners to request and receive 
 ```
 > POST /activity-pingback-receiver HTTP/1.1
 > Host: source.host
-> Activity-Pingback-HMAC: hmac_signature
-> Link: <http://remote.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+> Activity-Pingback: uri="http://remote.host/activity-pingback-endpoint",
+>                    timestamp="1336363200",
+>                    nonce="dj83hs9s",
+>                    hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
 >
 > {JSON Activity Streams Payload}
 
@@ -31,7 +33,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 < HTTP/1.1 202 Accepted
 ```
 
-The `hmac_signature` of the `JSON Activity Streams Payload` is calculated by `remote.host` using an `algo` of its choice and its `secret`.
+The `hmac_sig` is calculated by `remote.host` over (`http://source.host/activity-pingback-endpoint` + `timestamp` + `nounce` + `JSON Activity Streams Payload`) using an `algo` of its choice and its `secret` as key.
 
 
 ## Verification
@@ -39,7 +41,10 @@ The `hmac_signature` of the `JSON Activity Streams Payload` is calculated by `re
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
 > Host: remote.host
-> Activity-Pingback-HMAC: hmac_signature
+> Activity-Pingback-Verify: uri="http://source.host/activity-pingback-endpoint",
+>                           timestamp="1336363200",
+>                           nonce="dj83hs9s",
+>                           hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
 >
 > {JSON Activity Streams Payload}
 
@@ -47,17 +52,13 @@ The `hmac_signature` of the `JSON Activity Streams Payload` is calculated by `re
 < HTTP/1.1 200 OK
 ```
 
-`remote.host` compares the received `hmac_signature` against the signature of the received `JSON Activity Streams Payload` calculated using the `algo` and `secret` it uses while sending notifications.
+`remote.host` compares the received `hmac_signature` against the one calculated over the received (`uri` + `timestamp` + `nouce` + `JSON Activity Streams Payload`) using the `algo` and `secret` it uses while sending notifications.
 
-Notes
------
-* `source.host` can publish a HTTPS `Activity-Pingback` URI to receive notifications securely.
-* `remote.host` can send a HTTPS `Activity-Pingback-Verify` URI to prevent spoofing.
 
 
 TODO
 ----
-* `remote.host` should add timestamp while creating the hash to prevent MIM replay attacks?
+* Consider using [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00) if [e14n/pump.io#144](https://github.com/e14n/pump.io/issues/144) is fixed.
 
 
 See also
