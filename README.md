@@ -55,14 +55,32 @@ The `hmac_sig` is calculated by `notification.sender` over (`http://notification
 `notification.sender` compares the received `hmac_signature` against the one calculated over the received (`uri` + `timestamp` + `nouce` + `JSON Activity Streams Payload`) using the `algo` and `secret` it uses while sending notifications.
 
 
+## Security and Spam
 
-TODO
-----
+
+### Questions receivers should be able to reliably answer:
+
+* Did __you__ (the sender mentioned in the request) send __this activity__  to __me__?
+* Is __this activity__ about __my resource__?
+  * Check the _object_ in the activity
+* How do I know if I'm actually taking with the intended sender?
+  * HTTPS?
+* Is this activity relevant to the conversation or just spam?
+  * Moderate first time senders and then maually whitelist/backlist them. Given the use case the frequency of this might be similar to accepting friend requests.
+
+### Questions senders should be able to reliably answer:
+* How do I know my notification is actually reaching the intended receiver?
+  * HTTPS
+* Can someone else send this message on my behalf without me knowing about it?
+
+
+## TODO
+
 * Consider using [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00) if [e14n/pump.io#144](https://github.com/e14n/pump.io/issues/144) is fixed.
 
 
-See also
---------
+## See also
+
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
 * [Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html)
 * [RESTful](http://bblfish.net/tmp/2011/05/09/) [Pings](http://www.w3.org/community/rww/wiki/Pingback)
