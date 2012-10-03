@@ -78,6 +78,7 @@ The `hmac_sig` is calculated by `notification.sender` over (`http://notification
 ## TODO
 
 * Consider using [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00) if [evanp/dialback#2](https://github.com/evanp/dialback/issues/2) is fixed.
+* Currently the notification process is asynchronous. Consider making it synchronous?
 
 
 ## See also
