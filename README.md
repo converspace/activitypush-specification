@@ -22,10 +22,11 @@ A lightweight method for URI addressable resource owners to request and receive 
 ```
 > POST /activity-pingback-receiver HTTP/1.1
 > Host: notification.receiver
-> Activity-Pingback: uri="http://notification.sender/activity-pingback-endpoint",
+> Activity-Pingback: from="http://notification.sender/activity-pingback-endpoint",
 >                    timestamp="1336363200",
 >                    nonce="dj83hs9s",
->                    hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
+>                    payload_hash='1f3870be274f6c49b3e31a0c6728957f',
+>                    request_hmac="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
 >
 > {JSON Activity Streams Payload}
 
@@ -33,26 +34,24 @@ A lightweight method for URI addressable resource owners to request and receive 
 < HTTP/1.1 202 Accepted
 ```
 
-The `hmac_sig` is calculated by `notification.sender` over (`http://notification.receiver/activity-pingback-endpoint` + `timestamp` + `nounce` + `JSON Activity Streams Payload`) using an `algo` of its choice and its `secret` as key.
-
 
 ## Verification
 
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
 > Host: notification.sender
-> Activity-Pingback-Verify: uri="http://notification.receiver/activity-pingback-endpoint",
->                           timestamp="1336363200",
->                           nonce="dj83hs9s",
->                           hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
+> Content-Type: application/x-www-url-form-encoded
 >
-> {JSON Activity Streams Payload}
+> to=http://notification.receiver/activity-pingback-endpoint&\
+> timestamp=1336363200&\
+> nonce=dj83hs9s&\
+> payload_hash=1f3870be274f6c49b3e31a0c6728957f&\
+> request_hmac=bhCQXTVyfj5cmA9uKkPFx1zeOXM=
+
 
 
 < HTTP/1.1 200 OK
 ```
-
-`notification.sender` compares the received `hmac_signature` against the one calculated over the received (`uri` + `timestamp` + `nouce` + `JSON Activity Streams Payload`) using the `algo` and `secret` it uses while sending notifications.
 
 
 ## Security and Spam
