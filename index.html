@@ -41,12 +41,13 @@
 
 <h2>Notification</h2>
 
-<pre><code>&gt; POST /activity-pingback-receiver HTTP/1.1
+<pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
 &gt; Host: notification.receiver
-&gt; Activity-Pingback: uri="http://notification.sender/activity-pingback-endpoint",
+&gt; Activity-Pingback: from="http://notification.sender/activity-pingback-endpoint",
 &gt;                    timestamp="1336363200",
 &gt;                    nonce="dj83hs9s",
-&gt;                    hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
+&gt;                    payload_hash='1f3870be274f6c49b3e31a0c6728957f',
+&gt;                    request_hmac="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
 &gt;
 &gt; {JSON Activity Streams Payload}
 
@@ -54,24 +55,26 @@
 &lt; HTTP/1.1 202 Accepted
 </code></pre>
 
-<p>The <code>hmac_sig</code> is calculated by <code>notification.sender</code> over (<code>http://notification.receiver/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nounce</code> + <code>JSON Activity Streams Payload</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
+<p><code>payload_hash</code> is the MD5 hash of the <code>JSON Activity Streams Payload</code>. <code>request_hmac</code> is the <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> over (<code>http://notification.receiver/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nounce</code> + <code>payload_hash</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
 
 <h2>Verification</h2>
 
 <pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
 &gt; Host: notification.sender
-&gt; Activity-Pingback-Verify: uri="http://notification.receiver/activity-pingback-endpoint",
-&gt;                           timestamp="1336363200",
-&gt;                           nonce="dj83hs9s",
-&gt;                           hmac_sig="bhCQXTVyfj5cmA9uKkPFx1zeOXM="
+&gt; Content-Type: application/x-www-url-form-encoded
 &gt;
-&gt; {JSON Activity Streams Payload}
+&gt; to=http://notification.receiver/activity-pingback-endpoint&amp;\
+&gt; timestamp=1336363200&amp;\
+&gt; nonce=dj83hs9s&amp;\
+&gt; payload_hash=1f3870be274f6c49b3e31a0c6728957f&amp;\
+&gt; request_hmac=bhCQXTVyfj5cmA9uKkPFx1zeOXM=
+
 
 
 &lt; HTTP/1.1 200 OK
 </code></pre>
 
-<p><code>notification.sender</code> compares the received <code>hmac_signature</code> against the one calculated over the received (<code>uri</code> + <code>timestamp</code> + <code>nouce</code> + <code>JSON Activity Streams Payload</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
+<p><code>notification.sender</code> compares the received <code>request_hmac</code> against the one calculated over the received (<code>to</code> + <code>timestamp</code> + <code>nouce</code> + <code>payload_hash</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
 <h2>Security and Spam</h2>
 
@@ -81,7 +84,7 @@
 <li>Did <strong>you</strong> (the sender mentioned in the request) send <strong>this activity</strong>  to <strong>me</strong>?
 
 <ul>
-<li>The <code>verification</code> step should answer the <strong>you</strong> part. Calculating the <code>hmac_sig</code> over the <code>payload</code> should answer the <strong>this activity</strong> part. Calculating the <code>hmac_sig</code> over the <code>receivers activity pingback endpoint</code> should answer the <strong>me</strong> part.</li>
+<li>The <code>verification</code> step should answer the <strong>you</strong> part. Calculating the <code>request_hmac</code> over the <code>payload_hash</code> should answer the <strong>this activity</strong> part. Calculating the <code>request_hmac</code> over <code>to</code> should answer the <strong>me</strong> part.</li>
 </ul>
 </li>
 <li>Is <strong>this activity</strong> about <strong>my resource</strong>?
@@ -115,7 +118,7 @@
 <li>Can someone else send this message on my behalf without me knowing about it?
 
 <ul>
-<li>Calculating the <code>hmac_sig</code> over a <code>timestamp</code> and <code>nounce</code> should prevent this.</li>
+<li>Calculating the <code>request_hmac</code> over a <code>timestamp</code> and <code>nounce</code> should prevent this.</li>
 </ul>
 </li>
 </ul><h2>TODO</h2>
