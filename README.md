@@ -80,7 +80,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 ## TODO
 
-* Consider using [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00) if [evanp/dialback#2](https://github.com/evanp/dialback/issues/2) is fixed.
+* Consider using [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00) if [evanp/dialback#2](https://github.com/evanp/dialback/issues/2) and [evanp/dialback#7](https://github.com/evanp/dialback/issues/7) are fixed.
 * Currently the notification process is asynchronous. Consider making it synchronous?
 
 
