@@ -53,7 +53,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 < HTTP/1.1 200 OK
 ```
-*Note*: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself
+*Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.*
 
 `notification.sender` compares the received `request_hmac` against the one calculated over the received (`to` + `timestamp` + `nouce` + `payload_hash`) using the `algo` and `secret` it uses while sending notifications.
 
