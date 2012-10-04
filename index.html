@@ -74,6 +74,8 @@
 &lt; HTTP/1.1 200 OK
 </code></pre>
 
+<p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
+
 <p><code>notification.sender</code> compares the received <code>request_hmac</code> against the one calculated over the received (<code>to</code> + <code>timestamp</code> + <code>nouce</code> + <code>payload_hash</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
 <h2>Security and Spam</h2>
