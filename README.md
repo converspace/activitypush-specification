@@ -20,7 +20,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 ## Notification
 
 ```
-> POST /activity-pingback-receiver HTTP/1.1
+> POST /activity-pingback-endpoint HTTP/1.1
 > Host: notification.receiver
 > Activity-Pingback: from="http://notification.sender/activity-pingback-endpoint",
 >                    timestamp="1336363200",
@@ -33,6 +33,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 < HTTP/1.1 202 Accepted
 ```
+`payload_hash` is the MD5 hash of the `JSON Activity Streams Payload`. `request_hmac` is the [HMAC](http://en.wikipedia.org/wiki/HMAC) over (`http://notification.receiver/activity-pingback-endpoint` + `timestamp` + `nounce` + `payload_hash`) using an `algo` of its choice and its `secret` as key.
 
 
 ## Verification
@@ -53,6 +54,8 @@ A lightweight method for URI addressable resource owners to request and receive 
 < HTTP/1.1 200 OK
 ```
 
+`notification.sender` compares the received `request_hmac` against the one calculated over the received (`to` + `timestamp` + `nouce` + `payload_hash`) using the `algo` and `secret` it uses while sending notifications.
+
 
 ## Security and Spam
 
@@ -60,7 +63,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 ### Questions receivers should be able to reliably answer:
 
 1. Did __you__ (the sender mentioned in the request) send __this activity__  to __me__?
- * The `verification` step should answer the __you__ part. Calculating the `hmac_sig` over the `payload` should answer the __this activity__ part. Calculating the `hmac_sig` over the `receivers activity pingback endpoint` should answer the __me__ part.
+ * The `verification` step should answer the __you__ part. Calculating the `request_hmac` over the `payload_hash` should answer the __this activity__ part. Calculating the `request_hmac` over `to` should answer the __me__ part.
 2. Is __this activity__ about __my resource__?
   * Checking the _object_ in the activity should answer this.
 3. How do I know if I'm actually talking with the intended sender?
@@ -72,7 +75,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 * How do I know my notification is actually reaching the intended receiver?
  * Given the _unsolicited nature of the notification_, an `HTTPS` activity pingback endpoint by the __receiver__ might be the only answer.
 * Can someone else send this message on my behalf without me knowing about it?
- * Calculating the `hmac_sig` over a `timestamp` and `nounce` should prevent this.
+ * Calculating the `request_hmac` over a `timestamp` and `nounce` should prevent this.
 
 ## TODO
 
