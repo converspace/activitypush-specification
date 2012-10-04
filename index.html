@@ -55,7 +55,7 @@
 &lt; HTTP/1.1 202 Accepted
 </code></pre>
 
-<p><code>payload_hash</code> is the MD5 hash of the <code>JSON Activity Streams Payload</code>. <code>request_hmac</code> is the <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> over (<code>http://notification.receiver/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nounce</code> + <code>payload_hash</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
+<p><code>payload_hash</code> is the MD5 hash of the <code>JSON Activity Streams Payload</code>. <code>request_hmac</code> is the <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> over (<code>http://notification.receiver/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nonce</code> + <code>payload_hash</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
 
 <h2>Verification</h2>
 
@@ -76,7 +76,7 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
-<p><code>notification.sender</code> compares the received <code>request_hmac</code> against the one calculated over the received (<code>to</code> + <code>timestamp</code> + <code>nouce</code> + <code>payload_hash</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
+<p><code>notification.sender</code> compares the received <code>request_hmac</code> against the one calculated over the received (<code>to</code> + <code>timestamp</code> + <code>nonce</code> + <code>payload_hash</code>) using the <code>algo</code> and <code>secret</code> it uses while sending notifications.</p>
 
 <h2>Security and Spam</h2>
 
@@ -120,7 +120,7 @@
 <li>Can someone else send this message on my behalf without me knowing about it?
 
 <ul>
-<li>Calculating the <code>request_hmac</code> over a <code>timestamp</code> and <code>nounce</code> should prevent this.</li>
+<li>Calculating the <code>request_hmac</code> over a <code>timestamp</code> and <code>nonce</code> should prevent this.</li>
 </ul>
 </li>
 </ul><h2>TODO</h2>
