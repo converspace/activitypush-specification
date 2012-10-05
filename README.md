@@ -94,5 +94,5 @@ A lightweight method for URI addressable resource owners to request and receive 
 * [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
 * [Activity Streams](http://activitystrea.ms/)
 
-## Lets collaborate
+## Let's collaborate
 Feel free to [file an issue](https://github.com/converspace/activity-pingback/issues) if you have feedback/questions/suggestions.
