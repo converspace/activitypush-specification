@@ -36,7 +36,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 
 
 
-## Step 3: Verify & retrieve Activity
+## Step 3: Verify & Retrieve Activity
 
 ```
 > GET /activity/42 HTTP/1.1
@@ -49,7 +49,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 < {JSON Activity Streams}
 ```
 
-`pingback.receiver` needs to figure out the `activity` based on the `content-type` (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it).
+`pingback.receiver` needs to figure out the `activity` based on the `content-type` (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the `activity`, `pingback.receiver` should check that the `object` in the `activity` is valid. 
 
 
 ## See also
