@@ -1,6 +1,6 @@
 # Activity Pingback Specification
 
-A lightweight method for URI addressable resource owners to request and receive unsolicited ([JSON Activity Streams](http://activitystrea.ms/specs/json/1.0/) based)  notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.
+A lightweight method for URI addressable resource owners to request and receive __unsolicited notifications__ about __remote (off-site) activities__ on their resources with an explicit goal of being easy to implement. Activites are represented using [Activity Streams](http://activitystrea.ms/).
 
 
 ## Step 1: Discover
@@ -61,7 +61,6 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 * [Salmon Protocol](http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html)
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
 * [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
-* [Activity Streams](http://activitystrea.ms/)
 * [Watch, trust, friend](http://markpasc.typepad.com/blog/2011/03/watch-trust-friend.html)
 * [Private webhooks, hold the crypto?](http://markpasc.typepad.com/blog/2011/04/private-webhooks-hold-the-crypto.html)
 
