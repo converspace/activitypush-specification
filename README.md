@@ -3,7 +3,7 @@
 A lightweight method for URI addressable resource owners to request and receive unsolicited ([JSON Activity Streams](http://activitystrea.ms/specs/json/1.0/) based)  notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.
 
 
-## Discovery
+## Step 1: Discover
 
 ```
 > GET /referenced-resource HTTP/1.1
@@ -17,7 +17,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 
 
-## Notification
+## Step 2: Notify
 
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
@@ -36,7 +36,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 `payload_hash` is the MD5 hash of the `JSON Activity Streams Payload`. `request_hmac` is the [HMAC](http://en.wikipedia.org/wiki/HMAC) over (`http://notification.receiver/activity-pingback-endpoint` + `timestamp` + `nonce` + `payload_hash`) using an `algo` of its choice and its `secret` as key.
 
 
-## Verification
+## Step 3: Verify
 
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
@@ -93,3 +93,6 @@ A lightweight method for URI addressable resource owners to request and receive 
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
 * [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
 * [Activity Streams](http://activitystrea.ms/)
+
+## Contribute
+* Feel free to [file an issue](https://github.com/converspace/activity-pingback/issues) if you have feedback/questions/suggestions.
