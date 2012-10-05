@@ -93,6 +93,8 @@ A lightweight method for URI addressable resource owners to request and receive 
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
 * [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
 * [Activity Streams](http://activitystrea.ms/)
+* [Watch, trust, friend](http://markpasc.typepad.com/blog/2011/03/watch-trust-friend.html)
+* [Private webhooks, hold the crypto?](http://markpasc.typepad.com/blog/2011/04/private-webhooks-hold-the-crypto.html)
 
 ## Let's collaborate
 Feel free to [file an issue](https://github.com/converspace/activity-pingback/issues) if you have feedback/questions/suggestions.
