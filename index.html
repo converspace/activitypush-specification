@@ -29,7 +29,7 @@
       <section>
         <p>A lightweight method for URI addressable resource owners to request and receive unsolicited (<a href="http://activitystrea.ms/specs/json/1.0/">JSON Activity Streams</a> based)  notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.</p>
 
-<h2>Discovery</h2>
+<h2>Step 1: Discover</h2>
 
 <pre><code>&gt; GET /referenced-resource HTTP/1.1
 &gt; Host: notification.receiver
@@ -39,7 +39,7 @@
 &lt; Link: &lt;http://notification.receiver/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
 </code></pre>
 
-<h2>Notification</h2>
+<h2>Step 2: Notify</h2>
 
 <pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
 &gt; Host: notification.receiver
@@ -57,7 +57,7 @@
 
 <p><code>payload_hash</code> is the MD5 hash of the <code>JSON Activity Streams Payload</code>. <code>request_hmac</code> is the <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> over (<code>http://notification.receiver/activity-pingback-endpoint</code> + <code>timestamp</code> + <code>nonce</code> + <code>payload_hash</code>) using an <code>algo</code> of its choice and its <code>secret</code> as key.</p>
 
-<h2>Verification</h2>
+<h2>Step 3: Verify</h2>
 
 <pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
 &gt; Host: notification.sender
@@ -140,6 +140,10 @@
 <li><a href="http://tools.ietf.org/html/draft-prodromou-dialback-00">Dialback Authentication</a></li>
 <li><a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a></li>
 <li><a href="http://activitystrea.ms/">Activity Streams</a></li>
+</ul><h2>Contribute</h2>
+
+<ul>
+<li>Feel free to <a href="https://github.com/converspace/activity-pingback/issues">file an issue</a> if you have feedback/questions/suggestions.</li>
 </ul>
       </section>
     </div>
