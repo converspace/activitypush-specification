@@ -88,7 +88,8 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
 * [Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html)
-* [RESTful](http://bblfish.net/tmp/2011/05/09/) [Pings](http://www.w3.org/community/rww/wiki/Pingback)
+* [RESTful Pingback](http://www.w3.org/wiki/Pingback)
+* [Semantic Pingback](http://aksw.org/projects/semanticpingback)
 * [Salmon Protocol](http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html)
 * [Dialback Authentication](http://tools.ietf.org/html/draft-prodromou-dialback-00)
 * [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)
