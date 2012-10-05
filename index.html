@@ -27,7 +27,7 @@
         </ul>
       </header>
       <section>
-        <p>A lightweight method for URI addressable resource owners to request and receive unsolicited (<a href="http://activitystrea.ms/specs/json/1.0/">JSON Activity Streams</a> based)  notifications about remote (off-site) activities on their resources with an explicit goal of being easy to implement.</p>
+        <p>A lightweight method for URI addressable resource owners to request and receive <strong>unsolicited notifications</strong> about <strong>remote (off-site) activities</strong> on their resources with an explicit goal of being easy to implement. Activites are represented using <a href="http://activitystrea.ms/">Activity Streams</a>.</p>
 
 <h2>Step 1: Discover</h2>
 
@@ -54,7 +54,7 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
-<h2>Step 3: Verify &amp; retrieve Activity</h2>
+<h2>Step 3: Verify &amp; Retrieve Activity</h2>
 
 <pre><code>&gt; GET /activity/42 HTTP/1.1
 &gt; Host: pingback.sender
@@ -66,7 +66,7 @@
 &lt; {JSON Activity Streams}
 </code></pre>
 
-<p><code>pingback.receiver</code> needs to figure out the <code>activity</code> based on the <code>content-type</code> (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it).</p>
+<p><code>pingback.receiver</code> needs to figure out the <code>activity</code> based on the <code>content-type</code> (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the <code>activity</code>, <code>pingback.receiver</code> should check that the <code>object</code> in the <code>activity</code> is valid. </p>
 
 <h2>See also</h2>
 
@@ -78,7 +78,6 @@
 <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon Protocol</a></li>
 <li><a href="http://tools.ietf.org/html/draft-prodromou-dialback-00">Dialback Authentication</a></li>
 <li><a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a></li>
-<li><a href="http://activitystrea.ms/">Activity Streams</a></li>
 <li><a href="http://markpasc.typepad.com/blog/2011/03/watch-trust-friend.html">Watch, trust, friend</a></li>
 <li><a href="http://markpasc.typepad.com/blog/2011/04/private-webhooks-hold-the-crypto.html">Private webhooks, hold the crypto?</a></li>
 </ul><h2>Let's collaborate</h2>
