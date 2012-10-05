@@ -23,7 +23,6 @@ A lightweight method for URI addressable resource owners to request and receive 
 > POST /activity-pingback-endpoint HTTP/1.1
 > Host: pingback.receiver
 > Content-Type: application/x-www-url-form-encoded
-> Activity-Pingback: from="http://pingback.sender/activity-pingback-endpoint",
 >
 > source=http://pingback.sender/activity/42&\
 > target=http://pingback.receiver/referenced-resource
