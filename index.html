@@ -54,6 +54,8 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
+<p>Each <code>activity</code> should have a unique URI (<code>source</code>). </p>
+
 <h2>Step 3: Verify &amp; Retrieve Activity</h2>
 
 <pre><code>&gt; GET /activity/42 HTTP/1.1
@@ -66,7 +68,7 @@
 &lt; {JSON Activity Streams}
 </code></pre>
 
-<p><code>pingback.receiver</code> needs to figure out the <code>activity</code> based on the <code>content-type</code> (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the <code>activity</code>, <code>pingback.receiver</code> should check that the <code>object</code> in the <code>activity</code> is valid. </p>
+<p><code>pingback.receiver</code> needs to figure out the <code>activity</code> based on the <code>content-type</code> (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the <code>activity</code>, <code>pingback.receiver</code> should check that the <code>object</code> in the <code>activity</code> is valid. <code>pingback.receiver</code> should treat <code>source</code> idempotently.</p>
 
 <h2>See also</h2>
 
