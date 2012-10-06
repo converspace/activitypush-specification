@@ -36,7 +36,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 Each `activity` should have a unique URI (`source`). 
 
 
-## Step 3: Verify & Retrieve Activity
+## Step 3: Get & Validate Activity
 
 ```
 > GET /activity/42 HTTP/1.1
