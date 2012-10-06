@@ -33,7 +33,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
 
-
+Each `activity` should have a unique URI (`source`). 
 
 
 ## Step 3: Verify & Retrieve Activity
@@ -48,8 +48,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 <
 < {JSON Activity Streams}
 ```
-
-`pingback.receiver` needs to figure out the `activity` based on the `content-type` (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the `activity`, `pingback.receiver` should check that the `object` in the `activity` is valid. 
+`pingback.receiver` needs to figure out the `activity` based on the `content-type` (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the `activity`, `pingback.receiver` should check that the `object` in the `activity` is valid. `pingback.receiver` should treat `source` idempotently.
 
 
 ## See also
