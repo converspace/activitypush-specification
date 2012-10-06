@@ -12,6 +12,12 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 < HTTP/1.1 200 OK
 < Link: <http://pingback.receiver/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< ...
+<
+< <html>
+< ...
+< <link href="http://pingback.receiver/activity-pingback-endpoint" rel="http://activitypingback.org/" />
+< ...
 ```
 
 
