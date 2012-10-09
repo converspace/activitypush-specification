@@ -61,6 +61,8 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
+<p><code>pingback.receiver</code> should check that the <code>object</code> of the <code>activity</code> belongs to it.</p>
+
 <h2>Step 3: Discover Actor Endpoint</h2>
 
 <pre><code>&gt; GET /actor/2 HTTP/1.1
@@ -89,7 +91,7 @@
 &lt; {JSON Activity Streams}
 </code></pre>
 
-<p><code>pingback.receiver</code> should check that the <code>object</code> of the <code>activity</code> is valid.</p>
+<p><code>pingback.receiver</code> should check that the <code>actor</code> and the <code>object</code> of the <code>activity</code> are the same as the one it received in the notification.</p>
 
 <h2>See also</h2>
 
