@@ -40,6 +40,8 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
 
+`pingback.receiver` should check that the `object` of the `activity` belongs to it.
+
 
 ## Step 3: Discover Actor Endpoint
 
@@ -71,7 +73,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 < {JSON Activity Streams}
 ```
 
-`pingback.receiver` should check that the `object` of the `activity` is valid.
+`pingback.receiver` should check that the `actor` and the `object` of the `activity` are the same as the one it received in the notification.
 
 
 ## See also
