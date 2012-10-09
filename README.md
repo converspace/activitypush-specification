@@ -1,6 +1,6 @@
 # Activity Pingback Specification
 
-A lightweight method for URI addressable resources to be __automatically notified__ about __remote (off-site) [activites](http://activitystrea.ms/)__ on them.
+A _lightweight_ method for __URI addressable resources__ to be __automatically notified__ about __remote (off-site) [activites](http://activitystrea.ms/)__ on them.
 
 A sample flow with a like activity might go like this:
 
