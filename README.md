@@ -6,7 +6,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 ## Step 1: Discover
 
 ```
-> GET /referenced-resource HTTP/1.1
+> GET /object-of-the-activity HTTP/1.1
 > Host: pingback.receiver
 
 
@@ -30,8 +30,9 @@ A lightweight method for URI addressable resource owners to request and receive 
 > Host: pingback.receiver
 > Content-Type: application/x-www-url-form-encoded
 >
-> source=http://pingback.sender/activity/42&\
-> target=http://pingback.receiver/referenced-resource
+> actor=http://pingback.sender/actor/2&\
+> activityid=http://pingback.sender/activity/42&\
+> object=http://pingback.receiver/object-of-the-activity
 
 
 < HTTP/1.1 202 Accepted
@@ -39,13 +40,27 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
 
-Each `activity` should have a unique URI (`source`). 
-
 
 ## Step 3: Get & Validate Activity
 
 ```
-> GET /activity/42 HTTP/1.1
+> GET /actor/2 HTTP/1.1
+> Host: pingback.sender
+
+
+< HTTP/1.1 200 OK
+< Link: <http://pingback.sender/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< ...
+<
+< <html>
+< ...
+< <link href="http://pingback.sender/activity-pingback-endpoint" rel="http://activitypingback.org/" />
+< ...
+```
+
+
+```
+> GET /activity-pingback-endpoint?actor=...&activityid=...&object=... HTTP/1.1
 > Host: pingback.sender
 
 
@@ -54,7 +69,8 @@ Each `activity` should have a unique URI (`source`).
 <
 < {JSON Activity Streams}
 ```
-`pingback.receiver` needs to figure out the `activity` based on the `content-type` (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the `activity`, `pingback.receiver` should check that the `object` in the `activity` is valid. `pingback.receiver` should treat `source` idempotently.
+
+`pingback.receiver` should check that the `object` of the `activity` is valid. `pingback.receiver` should treat `source` idempotently.
 
 
 ## See also
