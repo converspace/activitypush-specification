@@ -70,7 +70,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 < {JSON Activity Streams}
 ```
 
-`pingback.receiver` should check that the `object` of the `activity` is valid. `pingback.receiver` should treat `source` idempotently.
+`pingback.receiver` should check that the `object` of the `activity` is valid.
 
 
 ## See also
