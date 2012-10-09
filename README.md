@@ -2,11 +2,11 @@
 
 A lightweight method for URI addressable resources to be __automatically notified__ about __remote (off-site) [activites](http://activitystrea.ms/)__ on them.
 
-1. Alice's website aggregates posts from eveyone she follows (via PubSubHubbub).
-2. Alice visits her website, notices a post by Bob (that he made on his website) and likes it (on her website).
-3. Alice's website notifies Bob's website about the activity (using Activity Pingback).
+1. Alice's website aggregates posts from eveyone she follows (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
+2. Alice visits her website, notices a post by Bob (that he made on his website) and _likes_ it (on her website).
+3. Alice's website notifies Bob's website about the (_like_) activity (using Activity Pingback).
 4. Bob's website shows the activity on Bob's activity stream and with his original post.
-5. Other users following Bob's website are notified about the activity (via PubSubHubbub).
+5. Other users following Bob's website are notified about the activity (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
 
 ## Discover Receiver Endpoint
 
