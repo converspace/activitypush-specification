@@ -2,7 +2,7 @@
 
 A _lightweight_ method for __URI addressable resources__ to be __automatically notified__ about __remote (off-site) [activites](http://activitystrea.ms/)__ on them.
 
-A sample flow with a like activity might go like this:
+A sample _like_ activity flow might go like this:
 
 1. Alice's website aggregates posts from eveyone she follows (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
 2. Alice visits her website, notices a post by Bob (that he made on his website) and _likes_ it (on her website).
