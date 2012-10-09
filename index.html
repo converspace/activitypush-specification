@@ -31,7 +31,7 @@
 
 <h2>Step 1: Discover</h2>
 
-<pre><code>&gt; GET /referenced-resource HTTP/1.1
+<pre><code>&gt; GET /object-of-the-activity HTTP/1.1
 &gt; Host: pingback.receiver
 
 
@@ -51,8 +51,9 @@
 &gt; Host: pingback.receiver
 &gt; Content-Type: application/x-www-url-form-encoded
 &gt;
-&gt; source=http://pingback.sender/activity/42&amp;\
-&gt; target=http://pingback.receiver/referenced-resource
+&gt; actor=http://pingback.sender/actor/2&amp;\
+&gt; activityid=http://pingback.sender/activity/42&amp;\
+&gt; object=http://pingback.receiver/object-of-the-activity
 
 
 &lt; HTTP/1.1 202 Accepted
@@ -60,11 +61,23 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
-<p>Each <code>activity</code> should have a unique URI (<code>source</code>). </p>
-
 <h2>Step 3: Get &amp; Validate Activity</h2>
 
-<pre><code>&gt; GET /activity/42 HTTP/1.1
+<pre><code>&gt; GET /actor/2 HTTP/1.1
+&gt; Host: pingback.sender
+
+
+&lt; HTTP/1.1 200 OK
+&lt; Link: &lt;http://pingback.sender/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
+&lt; ...
+&lt;
+&lt; &lt;html&gt;
+&lt; ...
+&lt; &lt;link href="http://pingback.sender/activity-pingback-endpoint" rel="http://activitypingback.org/" /&gt;
+&lt; ...
+</code></pre>
+
+<pre><code>&gt; GET /activity-pingback-endpoint?actor=...&amp;activityid=...&amp;object=... HTTP/1.1
 &gt; Host: pingback.sender
 
 
@@ -74,7 +87,7 @@
 &lt; {JSON Activity Streams}
 </code></pre>
 
-<p><code>pingback.receiver</code> needs to figure out the <code>activity</code> based on the <code>content-type</code> (if it's a HTML page look for Activity Streams microformat, if it's a JSON Activity Stream just read it). Once it has the <code>activity</code>, <code>pingback.receiver</code> should check that the <code>object</code> in the <code>activity</code> is valid. <code>pingback.receiver</code> should treat <code>source</code> idempotently.</p>
+<p><code>pingback.receiver</code> should check that the <code>object</code> of the <code>activity</code> is valid.</p>
 
 <h2>See also</h2>
 
