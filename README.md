@@ -3,7 +3,7 @@
 A lightweight method for URI addressable resource owners to request and receive __unsolicited notifications__ about __remote (off-site) activities__ on their resources with an explicit goal of being easy to implement. Activites are represented using [Activity Streams](http://activitystrea.ms/).
 
 
-## Step 1: Discover
+## Step 1: Discover Receiver Endpoint
 
 ```
 > GET /object-of-the-activity HTTP/1.1
@@ -23,7 +23,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 
 
 
-## Step 2: Notify
+## Step 2: Notify Receiver
 
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
@@ -41,7 +41,7 @@ A lightweight method for URI addressable resource owners to request and receive 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
 
 
-## Step 3: Get & Validate Activity
+## Step 3: Discover Actor Endpoint
 
 ```
 > GET /actor/2 HTTP/1.1
@@ -58,6 +58,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 < ...
 ```
 
+## Step 4: Get Activity from Actor Endpoint & Validate
 
 ```
 > GET /activity-pingback-endpoint?actor=...&activityid=...&object=... HTTP/1.1
