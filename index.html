@@ -27,7 +27,9 @@
         </ul>
       </header>
       <section>
-        <p>A lightweight method for URI addressable resources to be <strong>automatically notified</strong> about <strong>remote (off-site) <a href="http://activitystrea.ms/">activites</a></strong> on them.</p>
+        <p>A <em>lightweight</em> method for <strong>URI addressable resources</strong> to be <strong>automatically notified</strong> about <strong>remote (off-site) <a href="http://activitystrea.ms/">activites</a></strong> on them.</p>
+
+<p>A sample flow with a like activity might go like this:</p>
 
 <ol>
 <li>Alice's website aggregates posts from eveyone she follows (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
@@ -92,7 +94,7 @@
 
 
 &lt; HTTP/1.1 200 OK
-&lt; Content-Type: application/json
+&lt; Content-Type: application/stream+json
 &lt;
 &lt; {JSON Activity Streams}
 </code></pre>
