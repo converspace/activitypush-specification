@@ -27,9 +27,15 @@
         </ul>
       </header>
       <section>
-        <p>A lightweight method for URI addressable resource owners to request and receive <strong>unsolicited notifications</strong> about <strong>remote (off-site) activities</strong> on their resources with an explicit goal of being easy to implement. Activites are represented using <a href="http://activitystrea.ms/">Activity Streams</a>.</p>
+        <p>A lightweight method for URI addressable resources to be <strong>automatically notified</strong> about <strong>remote (off-site) <a href="http://activitystrea.ms/">activites</a></strong> on them.</p>
 
-<h2>Discover Receiver Endpoint</h2>
+<ol>
+<li>Alice's website aggregates posts from eveyone she follows (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
+<li>Alice visits her website, notices a post by Bob (that he made on his website) and <em>likes</em> it (on her website).</li>
+<li>Alice's website notifies Bob's website about the (<em>like</em>) activity (using Activity Pingback).</li>
+<li>Bob's website shows the activity on Bob's activity stream and with his original post.</li>
+<li>Other users following Bob's website are notified about the activity (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
+</ol><h2>Discover Receiver Endpoint</h2>
 
 <pre><code>&gt; GET /object-of-the-activity HTTP/1.1
 &gt; Host: pingback.receiver
