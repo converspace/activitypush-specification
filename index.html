@@ -29,7 +29,7 @@
       <section>
         <p>A lightweight method for URI addressable resource owners to request and receive <strong>unsolicited notifications</strong> about <strong>remote (off-site) activities</strong> on their resources with an explicit goal of being easy to implement. Activites are represented using <a href="http://activitystrea.ms/">Activity Streams</a>.</p>
 
-<h2>Step 1: Discover</h2>
+<h2>Step 1: Discover Receiver Endpoint</h2>
 
 <pre><code>&gt; GET /object-of-the-activity HTTP/1.1
 &gt; Host: pingback.receiver
@@ -45,7 +45,7 @@
 &lt; ...
 </code></pre>
 
-<h2>Step 2: Notify</h2>
+<h2>Step 2: Notify Receiver</h2>
 
 <pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
 &gt; Host: pingback.receiver
@@ -61,7 +61,7 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
-<h2>Step 3: Get &amp; Validate Activity</h2>
+<h2>Step 3: Discover Actor Endpoint</h2>
 
 <pre><code>&gt; GET /actor/2 HTTP/1.1
 &gt; Host: pingback.sender
@@ -76,6 +76,8 @@
 &lt; &lt;link href="http://pingback.sender/activity-pingback-endpoint" rel="http://activitypingback.org/" /&gt;
 &lt; ...
 </code></pre>
+
+<h2>Step 4: Get Activity from Actor Endpoint &amp; Validate</h2>
 
 <pre><code>&gt; GET /activity-pingback-endpoint?actor=...&amp;activityid=...&amp;object=... HTTP/1.1
 &gt; Host: pingback.sender
