@@ -86,6 +86,8 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 
 `bobs.host` should check that the `actor` and the `object` of the `activity` are the same as the one it received in the notification.
 
+Activity Pingback is agnostic to how Activities are represented as long as it has an `actor` URL, a `verb` and an `object` URL. For example, instead of the `application/stream+json`, 'alices.host` could have returned an HTML representation containing activity [microformats](http://microformats.org/wiki/activity-streams) or RDFa.
+
 
 ## See also
 
