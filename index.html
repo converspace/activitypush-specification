@@ -105,6 +105,8 @@
 
 <p><code>bobs.host</code> should check that the <code>actor</code> and the <code>object</code> of the <code>activity</code> are the same as the one it received in the notification.</p>
 
+<p>Activity Pingback is agnostic to how Activities are represented as long as it has an <code>actor</code> URL, a <code>verb</code> and an <code>object</code> URL. For example, instead of the <code>application/stream+json</code>, 'alices.host` could have returned an HTML representation containing activity <a href="http://microformats.org/wiki/activity-streams">microformats</a> or RDFa.</p>
+
 <h2>See also</h2>
 
 <ul>
