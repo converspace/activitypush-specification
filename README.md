@@ -2,7 +2,9 @@
 
 A _lightweight_ method for __URI addressable resources__ to be __automatically notified__ about __remote (off-site) [activites](http://activitystrea.ms/)__ on them.
 
-A sample _like_ activity flow might go like this:
+A crypto-free alternative to the [Salmon Protocol](http://www.salmon-protocol.org/) for public activites.
+
+## Imagine
 
 1. Alice's website aggregates posts from eveyone she follows (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
 2. Alice visits her website, notices a post by Bob (that he made on his website) and _likes_ it (on her website).
@@ -10,36 +12,38 @@ A sample _like_ activity flow might go like this:
 4. Bob's website shows the activity on Bob's activity stream and with his original post.
 5. Other users following Bob's website are notified about the activity (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
 
-## Discover Receiver Endpoint
+## Protocol Flow
+
+### Sender discovers Receiver Endpoint
 
 ```
-> GET /object-of-the-activity HTTP/1.1
-> Host: pingback.receiver
+> GET /bob/post/2 HTTP/1.1
+> Host: bobs.host
 
 
 < HTTP/1.1 200 OK
-< Link: <http://pingback.receiver/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< Link: <http://bobs.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
 < ...
 <
 < <html>
 < ...
-< <link href="http://pingback.receiver/activity-pingback-endpoint" rel="http://activitypingback.org/" />
+< <link href="http://bobs.host/activity-pingback-endpoint" rel="http://activitypingback.org/" />
 < ...
 ```
 
 
 
 
-## Notify Receiver
+### Sender Notifies Receiver
 
 ```
 > POST /activity-pingback-endpoint HTTP/1.1
-> Host: pingback.receiver
+> Host: bobs.host
 > Content-Type: application/x-www-url-form-encoded
 >
-> actor=http://pingback.sender/actor/2&\
-> activityid=http://pingback.sender/activity/42&\
-> object=http://pingback.receiver/object-of-the-activity
+> actor=http://alices.host/alice&\
+> activityid=http://alices.host/alice/activity/42&\
+> object=http://bobs.host/bob/post/2
 
 
 < HTTP/1.1 202 Accepted
@@ -47,31 +51,31 @@ A sample _like_ activity flow might go like this:
 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
 
-`pingback.receiver` should check that the `object` of the `activity` belongs to it.
+`bobs.host` should check that the `object` of the `activity` belongs to it.
 
 
-## Discover Actor Endpoint
+### Receiver discovers Actor Endpoint
 
 ```
-> GET /actor/2 HTTP/1.1
-> Host: pingback.sender
+> GET /alice HTTP/1.1
+> Host: alices.host
 
 
 < HTTP/1.1 200 OK
-< Link: <http://pingback.sender/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< Link: <http://alices.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
 < ...
 <
 < <html>
 < ...
-< <link href="http://pingback.sender/activity-pingback-endpoint" rel="http://activitypingback.org/" />
+< <link href="http://alices.host/activity-pingback-endpoint" rel="http://activitypingback.org/" />
 < ...
 ```
 
-## Get Activity from Actor Endpoint & Validate
+### Receiver gets Activity from Actor Endpoint & Validates it
 
 ```
 > GET /activity-pingback-endpoint?actor=...&activityid=...&object=... HTTP/1.1
-> Host: pingback.sender
+> Host: alices.host
 
 
 < HTTP/1.1 200 OK
@@ -80,7 +84,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 < {JSON Activity Streams}
 ```
 
-`pingback.receiver` should check that the `actor` and the `object` of the `activity` are the same as the one it received in the notification.
+`bobs.host` should check that the `actor` and the `object` of the `activity` are the same as the one it received in the notification.
 
 
 ## See also
