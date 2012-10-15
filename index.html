@@ -29,7 +29,9 @@
       <section>
         <p>A <em>lightweight</em> method for <strong>URI addressable resources</strong> to be <strong>automatically notified</strong> about <strong>remote (off-site) <a href="http://activitystrea.ms/">activites</a></strong> on them.</p>
 
-<p>A sample <em>like</em> activity flow might go like this:</p>
+<p>A crypto-free alternative to the <a href="http://www.salmon-protocol.org/">Salmon Protocol</a> for public activites.</p>
+
+<h2>Imagine</h2>
 
 <ol>
 <li>Alice's website aggregates posts from eveyone she follows (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
@@ -37,31 +39,33 @@
 <li>Alice's website notifies Bob's website about the (<em>like</em>) activity (using Activity Pingback).</li>
 <li>Bob's website shows the activity on Bob's activity stream and with his original post.</li>
 <li>Other users following Bob's website are notified about the activity (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
-</ol><h2>Discover Receiver Endpoint</h2>
+</ol><h2>Protocol Flow</h2>
 
-<pre><code>&gt; GET /object-of-the-activity HTTP/1.1
-&gt; Host: pingback.receiver
+<h3>Sender discovers Receiver Endpoint</h3>
+
+<pre><code>&gt; GET /bob/post/2 HTTP/1.1
+&gt; Host: bobs.host
 
 
 &lt; HTTP/1.1 200 OK
-&lt; Link: &lt;http://pingback.receiver/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
+&lt; Link: &lt;http://bobs.host/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
 &lt; ...
 &lt;
 &lt; &lt;html&gt;
 &lt; ...
-&lt; &lt;link href="http://pingback.receiver/activity-pingback-endpoint" rel="http://activitypingback.org/" /&gt;
+&lt; &lt;link href="http://bobs.host/activity-pingback-endpoint" rel="http://activitypingback.org/" /&gt;
 &lt; ...
 </code></pre>
 
-<h2>Notify Receiver</h2>
+<h3>Sender Notifies Receiver</h3>
 
 <pre><code>&gt; POST /activity-pingback-endpoint HTTP/1.1
-&gt; Host: pingback.receiver
+&gt; Host: bobs.host
 &gt; Content-Type: application/x-www-url-form-encoded
 &gt;
-&gt; actor=http://pingback.sender/actor/2&amp;\
-&gt; activityid=http://pingback.sender/activity/42&amp;\
-&gt; object=http://pingback.receiver/object-of-the-activity
+&gt; actor=http://alices.host/alice&amp;\
+&gt; activityid=http://alices.host/alice/activity/42&amp;\
+&gt; object=http://bobs.host/bob/post/2
 
 
 &lt; HTTP/1.1 202 Accepted
@@ -69,28 +73,28 @@
 
 <p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
 
-<p><code>pingback.receiver</code> should check that the <code>object</code> of the <code>activity</code> belongs to it.</p>
+<p><code>bobs.host</code> should check that the <code>object</code> of the <code>activity</code> belongs to it.</p>
 
-<h2>Discover Actor Endpoint</h2>
+<h3>Receiver discovers Actor Endpoint</h3>
 
-<pre><code>&gt; GET /actor/2 HTTP/1.1
-&gt; Host: pingback.sender
+<pre><code>&gt; GET /alice HTTP/1.1
+&gt; Host: alices.host
 
 
 &lt; HTTP/1.1 200 OK
-&lt; Link: &lt;http://pingback.sender/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
+&lt; Link: &lt;http://alices.host/activity-pingback-endpoint&gt;; rel="http://activitypingback.org/"
 &lt; ...
 &lt;
 &lt; &lt;html&gt;
 &lt; ...
-&lt; &lt;link href="http://pingback.sender/activity-pingback-endpoint" rel="http://activitypingback.org/" /&gt;
+&lt; &lt;link href="http://alices.host/activity-pingback-endpoint" rel="http://activitypingback.org/" /&gt;
 &lt; ...
 </code></pre>
 
-<h2>Get Activity from Actor Endpoint &amp; Validate</h2>
+<h3>Receiver gets Activity from Actor Endpoint &amp; Validates it</h3>
 
 <pre><code>&gt; GET /activity-pingback-endpoint?actor=...&amp;activityid=...&amp;object=... HTTP/1.1
-&gt; Host: pingback.sender
+&gt; Host: alices.host
 
 
 &lt; HTTP/1.1 200 OK
@@ -99,7 +103,7 @@
 &lt; {JSON Activity Streams}
 </code></pre>
 
-<p><code>pingback.receiver</code> should check that the <code>actor</code> and the <code>object</code> of the <code>activity</code> are the same as the one it received in the notification.</p>
+<p><code>bobs.host</code> should check that the <code>actor</code> and the <code>object</code> of the <code>activity</code> are the same as the one it received in the notification.</p>
 
 <h2>See also</h2>
 
