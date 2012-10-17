@@ -22,12 +22,12 @@ A crypto-free alternative to the [Salmon Protocol](http://www.salmon-protocol.or
 
 
 < HTTP/1.1 200 OK
-< Link: <http://bobs.host/activity-pingback-endpoint>; rel="http://activitypush.org/"
+< Link: <http://bobs.host/activitypush-endpoint>; rel="http://activitypush.org/"
 < ...
 <
 < <html>
 < ...
-< <link href="http://bobs.host/activity-pingback-endpoint" rel="http://activitypush.org/" />
+< <link href="http://bobs.host/activitypush-endpoint" rel="http://activitypush.org/" />
 < ...
 ```
 
@@ -37,7 +37,7 @@ A crypto-free alternative to the [Salmon Protocol](http://www.salmon-protocol.or
 ### Sender Notifies Receiver
 
 ```
-> POST /activity-pingback-endpoint HTTP/1.1
+> POST /activitypush-endpoint HTTP/1.1
 > Host: bobs.host
 > Content-Type: application/x-www-url-form-encoded
 >
@@ -62,19 +62,19 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 
 
 < HTTP/1.1 200 OK
-< Link: <http://alices.host/activity-pingback-endpoint>; rel="http://activitypush.org/"
+< Link: <http://alices.host/activitypush-endpoint>; rel="http://activitypush.org/"
 < ...
 <
 < <html>
 < ...
-< <link href="http://alices.host/activity-pingback-endpoint" rel="http://activitypush.org/" />
+< <link href="http://alices.host/activitypush-endpoint" rel="http://activitypush.org/" />
 < ...
 ```
 
 ### Receiver gets Activity from Actor Endpoint & Validates it
 
 ```
-> GET /activity-pingback-endpoint?actor=...&activityid=...&object=... HTTP/1.1
+> GET /activitypush-endpoint?actor=...&activityid=...&object=... HTTP/1.1
 > Host: alices.host
 
 
@@ -102,4 +102,4 @@ ActivityPush is agnostic to how Activities are represented as long as it has an 
 * [Private webhooks, hold the crypto?](http://markpasc.typepad.com/blog/2011/04/private-webhooks-hold-the-crypto.html)
 
 ## Let's collaborate
-Feel free to [file an issue](https://github.com/converspace/activity-pingback/issues) if you have feedback/questions/suggestions.
+Feel free to [file an issue](https://github.com/converspace/activitypush/issues) if you have feedback/questions/suggestions.
