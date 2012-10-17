@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Activity Pingback Specification by converspace</title>
+    <title>ActivityPush Specification by converspace</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -17,13 +17,13 @@
   <body>
     <div class="wrapper">
       <header class="without-description">
-        <h1>Activity Pingback Specification</h1>
+        <h1>ActivityPush Specification</h1>
         <p></p>
-        <p class="view"><a href="https://github.com/converspace/activity-pingback">View the Project on GitHub <small>converspace/activity-pingback</small></a></p>
+        <p class="view"><a href="https://github.com/converspace/activitypush-specification">View the Project on GitHub <small>converspace/activitypush-specification</small></a></p>
         <ul>
-          <li><a href="https://github.com/converspace/activity-pingback/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/converspace/activity-pingback/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/converspace/activity-pingback">View On <strong>GitHub</strong></a></li>
+          <li><a href="https://github.com/converspace/activitypush-specification/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/converspace/activitypush-specification/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/converspace/activitypush-specification">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
       <section>
@@ -36,7 +36,7 @@
 <ol>
 <li>Alice's website aggregates posts from eveyone she follows (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
 <li>Alice visits her website, notices a post by Bob (that he made on his website) and <em>likes</em> it (on her website).</li>
-<li>Alice's website notifies Bob's website about the (<em>like</em>) activity (using Activity Pingback).</li>
+<li>Alice's website notifies Bob's website about the (<em>like</em>) activity (using ActivityPush).</li>
 <li>Bob's website shows the activity on Bob's activity stream and with his original post.</li>
 <li>Other users following Bob's website are notified about the activity (via <a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>).</li>
 </ol><h2>Protocol Flow</h2>
@@ -105,7 +105,7 @@
 
 <p><code>bobs.host</code> should check that the <code>actor</code> and the <code>object</code> of the <code>activity</code> are the same as the one it received in the notification.</p>
 
-<p>Activity Pingback is agnostic to how Activities are represented as long as it has an <code>actor</code> URL, a <code>verb</code> and an <code>object</code> URL. For example, instead of the <code>application/stream+json</code>, 'alices.host` could have returned an HTML representation containing activity <a href="http://microformats.org/wiki/activity-streams">microformats</a> or RDFa.</p>
+<p>ActivityPush is agnostic to how Activities are represented as long as it has an <code>actor</code> URL, a <code>verb</code> and an <code>object</code> URL. For example, instead of the <code>application/stream+json</code>, 'alices.host` could have returned an HTML representation containing activity <a href="http://microformats.org/wiki/activity-streams">microformats</a> or RDFa.</p>
 
 <h2>See also</h2>
 
