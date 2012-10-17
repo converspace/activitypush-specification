@@ -22,12 +22,12 @@ A crypto-free alternative to the [Salmon Protocol](http://www.salmon-protocol.or
 
 
 < HTTP/1.1 200 OK
-< Link: <http://bobs.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< Link: <http://bobs.host/activity-pingback-endpoint>; rel="http://activitypush.org/"
 < ...
 <
 < <html>
 < ...
-< <link href="http://bobs.host/activity-pingback-endpoint" rel="http://activitypingback.org/" />
+< <link href="http://bobs.host/activity-pingback-endpoint" rel="http://activitypush.org/" />
 < ...
 ```
 
@@ -62,12 +62,12 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 
 
 < HTTP/1.1 200 OK
-< Link: <http://alices.host/activity-pingback-endpoint>; rel="http://activitypingback.org/"
+< Link: <http://alices.host/activity-pingback-endpoint>; rel="http://activitypush.org/"
 < ...
 <
 < <html>
 < ...
-< <link href="http://alices.host/activity-pingback-endpoint" rel="http://activitypingback.org/" />
+< <link href="http://alices.host/activity-pingback-endpoint" rel="http://activitypush.org/" />
 < ...
 ```
 
