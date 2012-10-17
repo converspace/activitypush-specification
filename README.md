@@ -1,4 +1,4 @@
-# Activity Pingback Specification
+# ActivityPush Specification
 
 A _lightweight_ method for __URI addressable resources__ to be __automatically notified__ about __remote (off-site) [activites](http://activitystrea.ms/)__ on them.
 
@@ -8,7 +8,7 @@ A crypto-free alternative to the [Salmon Protocol](http://www.salmon-protocol.or
 
 1. Alice's website aggregates posts from eveyone she follows (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
 2. Alice visits her website, notices a post by Bob (that he made on his website) and _likes_ it (on her website).
-3. Alice's website notifies Bob's website about the (_like_) activity (using Activity Pingback).
+3. Alice's website notifies Bob's website about the (_like_) activity (using ActivityPush).
 4. Bob's website shows the activity on Bob's activity stream and with his original post.
 5. Other users following Bob's website are notified about the activity (via [PubSubHubbub](https://code.google.com/p/pubsubhubbub/)).
 
@@ -86,7 +86,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 
 `bobs.host` should check that the `actor` and the `object` of the `activity` are the same as the one it received in the notification.
 
-Activity Pingback is agnostic to how Activities are represented as long as it has an `actor` URL, a `verb` and an `object` URL. For example, instead of the `application/stream+json`, 'alices.host` could have returned an HTML representation containing activity [microformats](http://microformats.org/wiki/activity-streams) or RDFa.
+ActivityPush is agnostic to how Activities are represented as long as it has an `actor` URL, a `verb` and an `object` URL. For example, instead of the `application/stream+json`, 'alices.host` could have returned an HTML representation containing activity [microformats](http://microformats.org/wiki/activity-streams) or RDFa.
 
 
 ## See also
